@@ -42,7 +42,9 @@ class EpubBook {
         Content == other.Content &&
         ((CoverImage == null && other.CoverImage == null) ||
             (collections.listsEqual(
-                CoverImage!.getBytes(), other.CoverImage!.getBytes()))) &&
+              CoverImage!.getBytes(),
+              other.CoverImage!.getBytes(),
+            ))) &&
         collections.listsEqual(Chapters, other.Chapters);
   }
 }

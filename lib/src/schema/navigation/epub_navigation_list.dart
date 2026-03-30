@@ -16,7 +16,7 @@ class EpubNavigationList {
       Id.hashCode,
       Class.hashCode,
       ...NavigationLabels?.map((label) => label.hashCode) ?? [0],
-      ...NavigationTargets?.map((target) => target.hashCode) ?? [0]
+      ...NavigationTargets?.map((target) => target.hashCode) ?? [0],
     ];
     return hashObjects(objects);
   }

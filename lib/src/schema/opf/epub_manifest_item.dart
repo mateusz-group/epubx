@@ -13,16 +13,16 @@ class EpubManifestItem {
 
   @override
   int get hashCode => hashObjects([
-        Id.hashCode,
-        Href.hashCode,
-        MediaType.hashCode,
-        MediaOverlay.hashCode,
-        RequiredNamespace.hashCode,
-        RequiredModules.hashCode,
-        Fallback.hashCode,
-        FallbackStyle.hashCode,
-        Properties.hashCode
-      ]);
+    Id.hashCode,
+    Href.hashCode,
+    MediaType.hashCode,
+    MediaOverlay.hashCode,
+    RequiredNamespace.hashCode,
+    RequiredModules.hashCode,
+    Fallback.hashCode,
+    FallbackStyle.hashCode,
+    Properties.hashCode,
+  ]);
 
   @override
   bool operator ==(other) {

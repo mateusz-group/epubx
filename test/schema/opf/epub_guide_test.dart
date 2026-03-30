@@ -8,8 +8,10 @@ import 'package:test/test.dart';
 import '../../random_data_generator.dart';
 
 main() async {
-  RandomDataGenerator generator =
-      new RandomDataGenerator(new Random(123445), 10);
+  RandomDataGenerator generator = new RandomDataGenerator(
+    new Random(123445),
+    10,
+  );
 
   var reference = generator.randomEpubGuide();
 

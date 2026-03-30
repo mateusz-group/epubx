@@ -14,7 +14,7 @@ main() async {
       ..Id = "Some ID"
       ..MediaType = "MKV"
       ..RequiredModules = "nodejs require()"
-      ..RequiredNamespace = ".NET Namespace"
+      ..RequiredNamespace = ".NET Namespace",
   ];
 
   EpubManifest testManifest;
@@ -31,14 +31,16 @@ main() async {
       });
 
       test("is false when Items changes", () async {
-        testManifest.Items.add(new EpubManifestItem()
-          ..Fallback = "Some Different Fallback"
-          ..FallbackStyle = "A less than Stylish Fallback"
-          ..Href = "Some Different HREF"
-          ..Id = "Some Different ID"
-          ..MediaType = "RealPlayer"
-          ..RequiredModules = "require()"
-          ..RequiredNamespace = "Namespace");
+        testManifest.Items.add(
+          new EpubManifestItem()
+            ..Fallback = "Some Different Fallback"
+            ..FallbackStyle = "A less than Stylish Fallback"
+            ..Href = "Some Different HREF"
+            ..Id = "Some Different ID"
+            ..MediaType = "RealPlayer"
+            ..RequiredModules = "require()"
+            ..RequiredNamespace = "Namespace",
+        );
 
         expect(testManifest, isNot(reference));
       });
@@ -50,14 +52,16 @@ main() async {
       });
 
       test("is false when Items changes", () async {
-        testManifest.Items.add(new EpubManifestItem()
-          ..Fallback = "Some Different Fallback"
-          ..FallbackStyle = "A less than Stylish Fallback"
-          ..Href = "Some Different HREF"
-          ..Id = "Some Different ID"
-          ..MediaType = "RealPlayer"
-          ..RequiredModules = "require()"
-          ..RequiredNamespace = "Namespace");
+        testManifest.Items.add(
+          new EpubManifestItem()
+            ..Fallback = "Some Different Fallback"
+            ..FallbackStyle = "A less than Stylish Fallback"
+            ..Href = "Some Different HREF"
+            ..Id = "Some Different ID"
+            ..MediaType = "RealPlayer"
+            ..RequiredModules = "require()"
+            ..RequiredNamespace = "Namespace",
+        );
         expect(testManifest.hashCode, isNot(reference.hashCode));
       });
     });

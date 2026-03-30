@@ -13,5 +13,5 @@ enum EpubContentType {
   IMAGE_BMP,
   FONT_TRUETYPE,
   FONT_OPENTYPE,
-  OTHER
+  OTHER,
 }

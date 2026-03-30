@@ -12,56 +12,81 @@ class EpubNavigationWriter {
     var builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
 
-    builder.element('ncx', attributes: {
-      'version': '2005-1',
-      'lang': 'en',
-    }, nest: () {
-      builder.namespace(_namespace);
+    builder.element(
+      'ncx',
+      attributes: {'version': '2005-1', 'lang': 'en'},
+      nest: () {
+        builder.namespace(_namespace);
 
-      writeNavigationHead(builder, navigation.Head!);
-      writeNavigationDocTitle(builder, navigation.DocTitle!);
-      writeNavigationMap(builder, navigation.NavMap!);
-    });
+        writeNavigationHead(builder, navigation.Head!);
+        writeNavigationDocTitle(builder, navigation.DocTitle!);
+        writeNavigationMap(builder, navigation.NavMap!);
+      },
+    );
 
     return builder.buildDocument().toXmlString(pretty: false);
   }
 
   static void writeNavigationDocTitle(
-      XmlBuilder builder, EpubNavigationDocTitle title) {
-    builder.element('docTitle', nest: () {
-      title.Titles!.forEach((element) {
-        builder.text(element);
-      });
-    });
+    XmlBuilder builder,
+    EpubNavigationDocTitle title,
+  ) {
+    builder.element(
+      'docTitle',
+      nest: () {
+        title.Titles!.forEach((element) {
+          builder.text(element);
+        });
+      },
+    );
   }
 
   static void writeNavigationHead(XmlBuilder builder, EpubNavigationHead head) {
-    builder.element('head', nest: () {
-      head.Metadata!.forEach((item) => builder.element('meta',
-          attributes: {'content': item.Content!, 'name': item.Name!}));
-    });
+    builder.element(
+      'head',
+      nest: () {
+        head.Metadata!.forEach(
+          (item) => builder.element(
+            'meta',
+            attributes: {'content': item.Content!, 'name': item.Name!},
+          ),
+        );
+      },
+    );
   }
 
   static void writeNavigationMap(XmlBuilder builder, EpubNavigationMap map) {
-    builder.element('navMap', nest: () {
-      map.Points!.forEach((item) => writeNavigationPoint(builder, item));
-    });
+    builder.element(
+      'navMap',
+      nest: () {
+        map.Points!.forEach((item) => writeNavigationPoint(builder, item));
+      },
+    );
   }
 
   static void writeNavigationPoint(
-      XmlBuilder builder, EpubNavigationPoint point) {
-    builder.element('navPoint', attributes: {
-      'id': point.Id!,
-      'playOrder': point.PlayOrder!,
-    }, nest: () {
-      point.NavigationLabels!.forEach((element) {
-        builder.element('navLabel', nest: () {
-          builder.element('text', nest: () {
-            builder.text(element.Text!);
-          });
+    XmlBuilder builder,
+    EpubNavigationPoint point,
+  ) {
+    builder.element(
+      'navPoint',
+      attributes: {'id': point.Id!, 'playOrder': point.PlayOrder!},
+      nest: () {
+        point.NavigationLabels!.forEach((element) {
+          builder.element(
+            'navLabel',
+            nest: () {
+              builder.element(
+                'text',
+                nest: () {
+                  builder.text(element.Text!);
+                },
+              );
+            },
+          );
         });
-      });
-      builder.element('content', attributes: {'src': point.Content!.Source!});
-    });
+        builder.element('content', attributes: {'src': point.Content!.Source!});
+      },
+    );
   }
 }

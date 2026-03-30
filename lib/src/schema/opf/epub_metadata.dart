@@ -43,7 +43,7 @@ class EpubMetadata {
       ...Coverages!.map((coverage) => coverage.hashCode),
       ...Rights!.map((right) => right.hashCode),
       ...MetaItems!.map((metaItem) => metaItem.hashCode),
-      Description.hashCode
+      Description.hashCode,
     ];
 
     return hashObjects(objects);

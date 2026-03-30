@@ -13,18 +13,25 @@ class EpubPackageWriter {
     var builder = XmlBuilder();
     builder.processing('xml', 'version="1.0"');
 
-    builder.element('package', attributes: {
-      'version': package.Version == EpubVersion.Epub2 ? '2.0' : '3.0',
-      'unique-identifier': 'etextno',
-    }, nest: () {
-      builder.namespace(_namespace);
+    builder.element(
+      'package',
+      attributes: {
+        'version': package.Version == EpubVersion.Epub2 ? '2.0' : '3.0',
+        'unique-identifier': 'etextno',
+      },
+      nest: () {
+        builder.namespace(_namespace);
 
-      EpubMetadataWriter.writeMetadata(
-          builder, package.Metadata, package.Version);
-      EpubManifestWriter.writeManifest(builder, package.Manifest);
-      EpubSpineWriter.writeSpine(builder, package.Spine!);
-      EpubGuideWriter.writeGuide(builder, package.Guide);
-    });
+        EpubMetadataWriter.writeMetadata(
+          builder,
+          package.Metadata,
+          package.Version,
+        );
+        EpubManifestWriter.writeManifest(builder, package.Manifest);
+        EpubSpineWriter.writeSpine(builder, package.Spine!);
+        EpubGuideWriter.writeGuide(builder, package.Guide);
+      },
+    );
 
     return builder.buildDocument().toXmlString(pretty: false);
   }

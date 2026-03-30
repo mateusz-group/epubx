@@ -20,7 +20,10 @@ class SchemaReader {
     result.Package = package;
 
     var navigation = await NavigationReader.readNavigation(
-        epubArchive, contentDirectoryPath, package);
+      epubArchive,
+      contentDirectoryPath,
+      package,
+    );
     result.Navigation = navigation;
 
     return result;

@@ -23,7 +23,7 @@ class EpubNavigationPageTarget {
       Class.hashCode,
       PlayOrder.hashCode,
       Content.hashCode,
-      ...NavigationLabels?.map((label) => label.hashCode) ?? [0]
+      ...NavigationLabels?.map((label) => label.hashCode) ?? [0],
     ];
     return hashObjects(objects);
   }
