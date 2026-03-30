@@ -38,13 +38,16 @@ abstract class EpubContentFileRef {
 
   ArchiveFile getContentFileEntry() {
     var contentFilePath = ZipPathUtils.combine(
-        epubBookRef.Schema!.ContentDirectoryPath, FileName);
-    var contentFileEntry = epubBookRef.EpubArchive()!
-        .files
-        .firstWhereOrNull((ArchiveFile x) => x.name == contentFilePath);
+      epubBookRef.Schema!.ContentDirectoryPath,
+      FileName,
+    );
+    var contentFileEntry = epubBookRef.EpubArchive()!.files.firstWhereOrNull(
+      (ArchiveFile x) => x.name == contentFilePath,
+    );
     if (contentFileEntry == null) {
       throw Exception(
-          'EPUB parsing error: file $contentFilePath not found in archive.');
+        'EPUB parsing error: file $contentFilePath not found in archive.',
+      );
     }
     return contentFileEntry;
   }
@@ -55,9 +58,10 @@ abstract class EpubContentFileRef {
 
   List<int> openContentStream(ArchiveFile contentFileEntry) {
     var contentStream = <int>[];
-    if (contentFileEntry.content == null) {
+    if (contentFileEntry.size == 0) {
       throw Exception(
-          'Incorrect EPUB file: content file \"$FileName\" specified in manifest is not found.');
+        'Incorrect EPUB file: content file \"$FileName\" specified in manifest is not found.',
+      );
     }
     contentStream.addAll(contentFileEntry.content);
     return contentStream;
