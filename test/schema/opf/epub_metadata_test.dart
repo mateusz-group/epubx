@@ -15,8 +15,10 @@ import '../../random_data_generator.dart';
 main() async {
   final int length = 10;
   final RandomString randomString = new RandomString(new Random(123788));
-  final RandomDataGenerator generator =
-      new RandomDataGenerator(new Random(123778), length);
+  final RandomDataGenerator generator = new RandomDataGenerator(
+    new Random(123778),
+    length,
+  );
 
   var reference = generator.randomEpubMetadata();
   EpubMetadata testMetadata;

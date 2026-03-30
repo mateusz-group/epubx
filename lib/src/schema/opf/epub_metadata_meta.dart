@@ -11,13 +11,13 @@ class EpubMetadataMeta {
 
   @override
   int get hashCode => hashObjects([
-        Name.hashCode,
-        Content.hashCode,
-        Id.hashCode,
-        Refines.hashCode,
-        Property.hashCode,
-        Scheme.hashCode
-      ]);
+    Name.hashCode,
+    Content.hashCode,
+    Id.hashCode,
+    Refines.hashCode,
+    Property.hashCode,
+    Scheme.hashCode,
+  ]);
 
   @override
   bool operator ==(other) {

@@ -8,8 +8,10 @@ import 'package:test/test.dart';
 import '../../random_data_generator.dart';
 
 main() async {
-  final RandomDataGenerator generator =
-      new RandomDataGenerator(new Random(123778), 10);
+  final RandomDataGenerator generator = new RandomDataGenerator(
+    new Random(123778),
+    10,
+  );
 
   final EpubNavigationTarget reference = generator.randomEpubNavigationTarget();
 
@@ -46,7 +48,7 @@ main() async {
       });
       test("is false when NavigationLabels changes", () async {
         testNavigationTarget.NavigationLabels = [
-          generator.randomEpubNavigationLabel()
+          generator.randomEpubNavigationLabel(),
         ];
         expect(testNavigationTarget, isNot(reference));
       });
@@ -79,7 +81,7 @@ main() async {
       });
       test("is false when NavigationLabels changes", () async {
         testNavigationTarget.NavigationLabels = [
-          generator.randomEpubNavigationLabel()
+          generator.randomEpubNavigationLabel(),
         ];
         expect(testNavigationTarget.hashCode, isNot(reference.hashCode));
       });

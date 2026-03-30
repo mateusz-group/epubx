@@ -20,7 +20,7 @@ class EpubNavigationPoint {
       PlayOrder.hashCode,
       Content.hashCode,
       ...NavigationLabels!.map((label) => label.hashCode),
-      ...ChildNavigationPoints!.map((point) => point.hashCode)
+      ...ChildNavigationPoints!.map((point) => point.hashCode),
     ];
     return hashObjects(objects);
   }
@@ -37,7 +37,10 @@ class EpubNavigationPoint {
     }
 
     if (!collections.listsEqual(
-        ChildNavigationPoints, otherAs.ChildNavigationPoints)) return false;
+      ChildNavigationPoints,
+      otherAs.ChildNavigationPoints,
+    ))
+      return false;
 
     return Id == otherAs.Id &&
         Class == otherAs.Class &&

@@ -32,7 +32,7 @@ class EpubContentRef {
       ...Fonts!.keys.map((key) => key.hashCode),
       ...Fonts!.values.map((value) => value.hashCode),
       ...AllFiles!.keys.map((key) => key.hashCode),
-      ...AllFiles!.values.map((value) => value.hashCode)
+      ...AllFiles!.values.map((value) => value.hashCode),
     ];
 
     return hashObjects(objects);

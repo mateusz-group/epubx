@@ -10,7 +10,10 @@ class EpubSchema {
 
   @override
   int get hashCode => hash3(
-      Package.hashCode, Navigation.hashCode, ContentDirectoryPath.hashCode);
+    Package.hashCode,
+    Navigation.hashCode,
+    ContentDirectoryPath.hashCode,
+  );
 
   @override
   bool operator ==(other) {

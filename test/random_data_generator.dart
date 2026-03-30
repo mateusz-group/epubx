@@ -48,7 +48,8 @@ class RandomString {
   /// Defaults to characters of ascii '!' to '~'.
   String randomString(int length, {int from: ASCII_START, int to: ASCII_END}) {
     return new String.fromCharCodes(
-        new List.generate(length, (index) => randomBetween(from, to)));
+      new List.generate(length, (index) => randomBetween(from, to)),
+    );
   }
 
   /// Generates a random string of [length] with only numeric characters.
@@ -59,10 +60,16 @@ class RandomString {
   String randomAlpha(int length) {
     var lowerAlphaLength = randomBetween(0, length);
     var upperAlphaLength = length - lowerAlphaLength;
-    var lowerAlpha = randomString(lowerAlphaLength,
-        from: LOWER_ALPHA_START, to: LOWER_ALPHA_END);
-    var upperAlpha = randomString(upperAlphaLength,
-        from: UPPER_ALPHA_START, to: UPPER_ALPHA_END);
+    var lowerAlpha = randomString(
+      lowerAlphaLength,
+      from: LOWER_ALPHA_START,
+      to: LOWER_ALPHA_END,
+    );
+    var upperAlpha = randomString(
+      upperAlphaLength,
+      from: UPPER_ALPHA_START,
+      to: UPPER_ALPHA_END,
+    );
     return randomMerge(lowerAlpha, upperAlpha);
   }
 

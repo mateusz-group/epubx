@@ -16,7 +16,7 @@ main() async {
     ..Items = [
       new EpubSpineItemRef()
         ..IdRef = randomString.randomAlpha(length)
-        ..IdRef = randomString.randomAlpha(length)
+        ..IdRef = randomString.randomAlpha(length),
     ]
     ..TableOfContents = randomString.randomAlpha(length);
 
@@ -39,7 +39,7 @@ main() async {
         testSpine.Items = [
           new EpubSpineItemRef()
             ..IdRef = randomString.randomAlpha(length)
-            ..IsLinear = false
+            ..IsLinear = false,
         ];
         expect(testSpine, isNot(reference));
       });
@@ -57,7 +57,7 @@ main() async {
         testSpine.Items = [
           new EpubSpineItemRef()
             ..IdRef = randomString.randomAlpha(length)
-            ..IsLinear = false
+            ..IsLinear = false,
         ];
         expect(testSpine.hashCode, isNot(reference.hashCode));
       });

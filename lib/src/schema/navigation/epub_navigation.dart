@@ -24,7 +24,7 @@ class EpubNavigation {
       NavMap.hashCode,
       PageList.hashCode,
       ...DocAuthors?.map((author) => author.hashCode) ?? [0],
-      ...NavLists?.map((navList) => navList.hashCode) ?? [0]
+      ...NavLists?.map((navList) => navList.hashCode) ?? [0],
     ];
     return hashObjects(objects);
   }

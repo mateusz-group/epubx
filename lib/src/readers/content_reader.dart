@@ -15,8 +15,9 @@ class ContentReader {
     result.Fonts = <String, EpubByteContentFileRef>{};
     result.AllFiles = <String, EpubContentFileRef>{};
 
-    bookRef.Schema!.Package!.Manifest!.Items!
-        .forEach((EpubManifestItem manifestItem) {
+    bookRef.Schema!.Package!.Manifest!.Items!.forEach((
+      EpubManifestItem manifestItem,
+    ) {
       var fileName = manifestItem.Href;
       var contentMimeType = manifestItem.MediaType!;
       var contentType = getContentTypeByContentMimeType(contentMimeType);
@@ -95,7 +96,8 @@ class ContentReader {
   }
 
   static EpubContentType getContentTypeByContentMimeType(
-      String contentMimeType) {
+    String contentMimeType,
+  ) {
     switch (contentMimeType.toLowerCase()) {
       case 'application/xhtml+xml':
         return EpubContentType.XHTML_1_1;

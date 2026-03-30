@@ -43,10 +43,7 @@ class EpubState extends State<EpubWidget> {
             child: Column(
               children: [
                 Padding(padding: EdgeInsets.only(top: 16.0)),
-                Text(
-                  'Epub Inspector',
-                  style: TextStyle(fontSize: 25.0),
-                ),
+                Text('Epub Inspector', style: TextStyle(fontSize: 25.0)),
                 Padding(padding: EdgeInsets.only(top: 50.0)),
                 Text(
                   'Enter the Url of an Epub to view some of it\'s metadata.',
@@ -72,23 +69,21 @@ class EpubState extends State<EpubWidget> {
                   },
                   controller: _urlController,
                   keyboardType: TextInputType.url,
-                  style: TextStyle(
-                    fontFamily: "Poppins",
-                  ),
+                  style: TextStyle(fontFamily: "Poppins"),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                ),
+                Padding(padding: EdgeInsets.only(top: 20.0)),
                 ElevatedButton(
                   onPressed: fetchBookButton,
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(8.0)),
-                    textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
-                      color: Colors.white,
-                    )),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                      EdgeInsets.all(8.0),
+                    ),
+                    textStyle: MaterialStateProperty.all<TextStyle>(
+                      TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.blue,
+                    ),
                   ),
                   child: Text("Inspect Book"),
                 ),
@@ -102,15 +97,17 @@ class EpubState extends State<EpubWidget> {
                 Column(
                   children: [
                     ...[
-                      'https://filesamples.com/samples/ebook/epub/Around%20the%20World%20in%2028%20Languages.epub',
-                      'https://filesamples.com/samples/ebook/epub/Sway.epub',
-                      'https://filesamples.com/samples/ebook/epub/Alices%20Adventures%20in%20Wonderland.epub',
-                      'https://filesamples.com/samples/ebook/epub/sample1.epub',
-                    ]
-                        .map((link) => TextButton(
-                              child: Text(link),
-                              onPressed: () => fetchBookPresets(link),
-                            ))
+                          'https://filesamples.com/samples/ebook/epub/Around%20the%20World%20in%2028%20Languages.epub',
+                          'https://filesamples.com/samples/ebook/epub/Sway.epub',
+                          'https://filesamples.com/samples/ebook/epub/Alices%20Adventures%20in%20Wonderland.epub',
+                          'https://filesamples.com/samples/ebook/epub/sample1.epub',
+                        ]
+                        .map(
+                          (link) => TextButton(
+                            child: Text(link),
+                            onPressed: () => fetchBookPresets(link),
+                          ),
+                        )
                         .cast<Widget>()
                         .toList(),
                   ],
@@ -149,31 +146,15 @@ Widget buildEpubWidget(epub.EpubBookRef book) {
   var chapters = book.getChapters();
   var cover = book.readCover();
   return Container(
-      child: Column(
-    children: <Widget>[
-      Text(
-        "Title",
-        style: TextStyle(fontSize: 20.0),
-      ),
-      Text(
-        book.Title!,
-        style: TextStyle(fontSize: 15.0),
-      ),
-      Padding(
-        padding: EdgeInsets.only(top: 15.0),
-      ),
-      Text(
-        "Author",
-        style: TextStyle(fontSize: 20.0),
-      ),
-      Text(
-        book.Author!,
-        style: TextStyle(fontSize: 15.0),
-      ),
-      Padding(
-        padding: EdgeInsets.only(top: 15.0),
-      ),
-      FutureBuilder<List<epub.EpubChapterRef>>(
+    child: Column(
+      children: <Widget>[
+        Text("Title", style: TextStyle(fontSize: 20.0)),
+        Text(book.Title!, style: TextStyle(fontSize: 15.0)),
+        Padding(padding: EdgeInsets.only(top: 15.0)),
+        Text("Author", style: TextStyle(fontSize: 20.0)),
+        Text(book.Author!, style: TextStyle(fontSize: 15.0)),
+        Padding(padding: EdgeInsets.only(top: 15.0)),
+        FutureBuilder<List<epub.EpubChapterRef>>(
           future: chapters,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -183,36 +164,37 @@ Widget buildEpubWidget(epub.EpubBookRef book) {
                   Text(
                     snapshot.data!.length.toString(),
                     style: TextStyle(fontSize: 15.0),
-                  )
+                  ),
                 ],
               );
             } else if (snapshot.hasError) {
               return Text("${snapshot.error}");
             }
             return Container();
-          }),
-      Padding(
-        padding: EdgeInsets.only(top: 15.0),
-      ),
-      FutureBuilder<epub.Image?>(
-        future: cover,
-        builder: (context, AsyncSnapshot<epub.Image?> snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: <Widget>[
-                Text("Cover", style: TextStyle(fontSize: 20.0)),
-                Image.memory(
-                    Uint8List.fromList(image.encodePng(snapshot.data!))),
-              ],
-            );
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-          return Container();
-        },
-      ),
-    ],
-  ));
+          },
+        ),
+        Padding(padding: EdgeInsets.only(top: 15.0)),
+        FutureBuilder<epub.Image?>(
+          future: cover,
+          builder: (context, AsyncSnapshot<epub.Image?> snapshot) {
+            if (snapshot.hasData) {
+              return Column(
+                children: <Widget>[
+                  Text("Cover", style: TextStyle(fontSize: 20.0)),
+                  Image.memory(
+                    Uint8List.fromList(image.encodePng(snapshot.data!)),
+                  ),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return Container();
+          },
+        ),
+      ],
+    ),
+  );
 }
 
 // Needs a url to a valid url to an epub such as

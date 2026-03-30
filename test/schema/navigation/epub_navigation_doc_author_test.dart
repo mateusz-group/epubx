@@ -9,8 +9,8 @@ import '../../random_data_generator.dart';
 
 main() async {
   final generator = new RandomDataGenerator(new Random(7898), 10);
-  final EpubNavigationDocAuthor reference =
-      generator.randomNavigationDocAuthor();
+  final EpubNavigationDocAuthor reference = generator
+      .randomNavigationDocAuthor();
 
   EpubNavigationDocAuthor testNavigationDocAuthor;
   setUp(() async {

@@ -13,7 +13,7 @@ class EpubSpine {
     var objs = [
       TableOfContents.hashCode,
       ltr.hashCode,
-      ...Items!.map((item) => item.hashCode)
+      ...Items!.map((item) => item.hashCode),
     ];
     return hashObjects(objs);
   }
