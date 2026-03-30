@@ -167,7 +167,7 @@ class NavigationReader {
       var tocManifestItem = package.Manifest!.Items!
           .cast<EpubManifestItem?>()
           .firstWhere(
-            (element) => element!.Properties == 'nav',
+            (element) => element!.Properties == 'nav' || element.Id == 'nav',
             orElse: () => null,
           );
       if (tocManifestItem == null) {
