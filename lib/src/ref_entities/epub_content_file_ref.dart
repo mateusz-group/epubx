@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'dart:convert' as convert;
+import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
-import 'dart:convert' as convert;
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:quiver/core.dart';
-import 'package:path/path.dart' as path;
 
 import '../entities/epub_content_type.dart';
 import '../utils/zip_path_utils.dart';
@@ -31,8 +31,7 @@ abstract class EpubContentFileRef {
       return false;
     }
 
-    return (other is EpubContentFileRef &&
-        other.FileName == FileName &&
+    return (other.FileName == FileName &&
         other.ContentMimeType == ContentMimeType &&
         other.ContentType == ContentType);
   }
@@ -42,7 +41,6 @@ abstract class EpubContentFileRef {
       epubBookRef.Schema!.ContentDirectoryPath,
       FileName,
     );
-    contentFilePath = path.normalize(contentFilePath!);
     var contentFileEntry = epubBookRef.EpubArchive()!.files.firstWhereOrNull(
       (ArchiveFile x) => x.name == contentFilePath,
     );
@@ -60,7 +58,7 @@ abstract class EpubContentFileRef {
 
   List<int> openContentStream(ArchiveFile contentFileEntry) {
     var contentStream = <int>[];
-    if (contentFileEntry.content == null) {
+    if (contentFileEntry.size == 0) {
       throw Exception(
         'Incorrect EPUB file: content file \"$FileName\" specified in manifest is not found.',
       );
@@ -69,10 +67,10 @@ abstract class EpubContentFileRef {
     return contentStream;
   }
 
-  Future<List<int>> readContentAsBytes() async {
+  Future<Uint8List> readContentAsBytes() async {
     var contentFileEntry = getContentFileEntry();
     var content = openContentStream(contentFileEntry);
-    return content;
+    return Uint8List.fromList(content);
   }
 
   Future<String> readContentAsText() async {

@@ -12,7 +12,7 @@ class EpubSpineWriter {
             'itemref',
             attributes: {
               'idref': spineitem.IdRef!,
-              'linear': spineitem.IsLinear! ? 'no' : 'yes',
+              'linear': spineitem.IsLinear! ? 'yes' : 'no',
             },
           ),
         );

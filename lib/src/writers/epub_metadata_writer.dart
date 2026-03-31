@@ -16,11 +16,11 @@ class EpubMetadataWriter {
       namespaces: {_opf_namespace: 'opf', _dc_namespace: 'dc'},
       nest: () {
         meta!
-          ..Titles!.forEach(
+          ..Titles?.forEach(
             (item) =>
                 builder.element('title', nest: item, namespace: _dc_namespace),
           )
-          ..Creators!.forEach(
+          ..Creators?.forEach(
             (item) => builder.element(
               'creator',
               namespace: _dc_namespace,
@@ -43,21 +43,21 @@ class EpubMetadataWriter {
               },
             ),
           )
-          ..Subjects!.forEach(
+          ..Subjects?.forEach(
             (item) => builder.element(
               'subject',
               namespace: _dc_namespace,
               nest: item,
             ),
           )
-          ..Publishers!.forEach(
+          ..Publishers?.forEach(
             (item) => builder.element(
               'publisher',
               namespace: _dc_namespace,
               nest: item,
             ),
           )
-          ..Contributors!.forEach(
+          ..Contributors?.forEach(
             (item) => builder.element(
               'contributor',
               namespace: _dc_namespace,
@@ -80,7 +80,7 @@ class EpubMetadataWriter {
               },
             ),
           )
-          ..Dates!.forEach(
+          ..Dates?.forEach(
             (date) => builder.element(
               'date',
               namespace: _dc_namespace,
@@ -96,18 +96,18 @@ class EpubMetadataWriter {
               },
             ),
           )
-          ..Types!.forEach(
+          ..Types?.forEach(
             (type) =>
                 builder.element('type', namespace: _dc_namespace, nest: type),
           )
-          ..Formats!.forEach(
+          ..Formats?.forEach(
             (format) => builder.element(
               'format',
               namespace: _dc_namespace,
               nest: format,
             ),
           )
-          ..Identifiers!.forEach(
+          ..Identifiers?.forEach(
             (id) => builder.element(
               'identifier',
               namespace: _dc_namespace,
@@ -124,36 +124,36 @@ class EpubMetadataWriter {
               },
             ),
           )
-          ..Sources!.forEach(
+          ..Sources?.forEach(
             (item) =>
                 builder.element('source', namespace: _dc_namespace, nest: item),
           )
-          ..Languages!.forEach(
+          ..Languages?.forEach(
             (item) => builder.element(
               'language',
               namespace: _dc_namespace,
               nest: item,
             ),
           )
-          ..Relations!.forEach(
+          ..Relations?.forEach(
             (item) => builder.element(
               'relation',
               namespace: _dc_namespace,
               nest: item,
             ),
           )
-          ..Coverages!.forEach(
+          ..Coverages?.forEach(
             (item) => builder.element(
               'coverage',
               namespace: _dc_namespace,
               nest: item,
             ),
           )
-          ..Rights!.forEach(
+          ..Rights?.forEach(
             (item) =>
                 builder.element('rights', namespace: _dc_namespace, nest: item),
           )
-          ..MetaItems!.forEach(
+          ..MetaItems?.forEach(
             (metaitem) => builder.element(
               'meta',
               nest: () {

@@ -10,10 +10,18 @@ class EpubManifestWriter {
           builder.element(
             'item',
             nest: () {
-              builder
-                ..attribute('id', item.Id!)
-                ..attribute('href', item.Href!)
-                ..attribute('media-type', item.MediaType!);
+              if (item.Id != null) {
+                builder.attribute('id', item.Id!);
+              }
+              if (item.Href != null) {
+                builder.attribute('href', item.Href!);
+              }
+              if (item.MediaType != null) {
+                builder.attribute('media-type', item.MediaType!);
+              }
+              if (item.Properties != null) {
+                builder.attribute('properties', item.Properties);
+              }
             },
           );
         });

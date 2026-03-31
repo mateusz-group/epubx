@@ -52,6 +52,7 @@ class ContentReader {
             case EpubContentType.IMAGE_JPEG:
             case EpubContentType.IMAGE_PNG:
             case EpubContentType.IMAGE_SVG:
+            case EpubContentType.IMAGE_BMP:
             case EpubContentType.FONT_TRUETYPE:
             case EpubContentType.FONT_OPENTYPE:
             case EpubContentType.OTHER:
@@ -72,6 +73,7 @@ class ContentReader {
             case EpubContentType.IMAGE_JPEG:
             case EpubContentType.IMAGE_PNG:
             case EpubContentType.IMAGE_SVG:
+            case EpubContentType.IMAGE_BMP:
               result.Images![fileName] = epubByteContentFile;
               break;
             case EpubContentType.FONT_TRUETYPE:
@@ -100,6 +102,7 @@ class ContentReader {
   ) {
     switch (contentMimeType.toLowerCase()) {
       case 'application/xhtml+xml':
+      case 'text/html':
         return EpubContentType.XHTML_1_1;
       case 'application/x-dtbook+xml':
         return EpubContentType.DTBOOK;
@@ -121,6 +124,8 @@ class ContentReader {
         return EpubContentType.IMAGE_PNG;
       case 'image/svg+xml':
         return EpubContentType.IMAGE_SVG;
+      case 'image/bmp':
+        return EpubContentType.IMAGE_BMP;
       case 'font/truetype':
         return EpubContentType.FONT_TRUETYPE;
       case 'font/opentype':

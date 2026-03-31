@@ -30,6 +30,7 @@ import '../utils/zip_path_utils.dart';
 
 class NavigationReader {
   static String? _tocFileEntryPath;
+
   static Future<EpubNavigation> readNavigation(
     Archive epubArchive,
     String contentDirectoryPath,
@@ -166,7 +167,7 @@ class NavigationReader {
       var tocManifestItem = package.Manifest!.Items!
           .cast<EpubManifestItem?>()
           .firstWhere(
-            (element) => element!.Properties == 'nav',
+            (element) => element!.Properties == 'nav' || element.Id == 'nav',
             orElse: () => null,
           );
       if (tocManifestItem == null) {
@@ -290,7 +291,7 @@ class NavigationReader {
           break;
         case 'href':
           if (_tocFileEntryPath!.length < 2 ||
-              attributeValue.contains(_tocFileEntryPath!)) {
+              attributeValue.startsWith(_tocFileEntryPath!)) {
             result.Source = attributeValue;
           } else {
             result.Source = path.normalize(_tocFileEntryPath! + attributeValue);
@@ -299,12 +300,23 @@ class NavigationReader {
           break;
       }
     });
-    if (result.Source == null || result.Source!.isEmpty) {
-      throw Exception(
-        'Incorrect EPUB navigation content: content source is missing.',
-      );
-    }
+    // element with span, the content will be null;
+    // if (result.Source == null || result.Source!.isEmpty) {
+    //   throw Exception(
+    //       'Incorrect EPUB navigation content: content source is missing.');
+    // }
     return result;
+  }
+
+  static String extractContentPath(String _tocFileEntryPath, String ref) {
+    if (!_tocFileEntryPath.endsWith('/')) {
+      _tocFileEntryPath = _tocFileEntryPath + '/';
+    }
+    var r = _tocFileEntryPath + ref;
+    r = r.replaceAll('/\./', '/');
+    r = r.replaceAll(RegExp(r'/[^/]+/\.\./'), '/');
+    r = r.replaceAll(RegExp(r'^[^/]+/\.\./'), '');
+    return r;
   }
 
   static EpubNavigationDocAuthor readNavigationDocAuthor(
@@ -313,10 +325,10 @@ class NavigationReader {
     var result = EpubNavigationDocAuthor();
     result.Authors = <String>[];
     docAuthorNode.children.whereType<xml.XmlElement>().forEach((
-      xml.XmlElement textNode,
+      xml.XmlElement node,
     ) {
-      if (textNode.name.local.toLowerCase() == 'text') {
-        result.Authors!.add(textNode.text);
+      if (node.name.local.toLowerCase() == 'text' && node.value != null) {
+        result.Authors!.add(node.value!);
       }
     });
     return result;
@@ -328,10 +340,10 @@ class NavigationReader {
     var result = EpubNavigationDocTitle();
     result.Titles = <String>[];
     docTitleNode.children.whereType<xml.XmlElement>().forEach((
-      xml.XmlElement textNode,
+      xml.XmlElement node,
     ) {
-      if (textNode.name.local.toLowerCase() == 'text') {
-        result.Titles!.add(textNode.text);
+      if (node.name.local.toLowerCase() == 'text' && node.value != null) {
+        result.Titles!.add(node.value!);
       }
     });
     return result;
@@ -392,7 +404,7 @@ class NavigationReader {
       );
     }
 
-    result.Text = navigationLabelTextNode.text;
+    result.Text = navigationLabelTextNode.value;
 
     return result;
   }
@@ -401,7 +413,7 @@ class NavigationReader {
     xml.XmlElement navigationLabelNode,
   ) {
     var result = EpubNavigationLabel();
-    result.Text = navigationLabelNode.text.trim();
+    result.Text = navigationLabelNode.value?.trim();
     return result;
   }
 
@@ -436,11 +448,10 @@ class NavigationReader {
           break;
       }
     });
-    if (result.NavigationLabels!.isEmpty) {
-      throw Exception(
-        'Incorrect EPUB navigation page target: at least one navLabel element is required.',
-      );
-    }
+    // if (result.NavigationLabels!.isEmpty) {
+    //   throw Exception(
+    //       'Incorrect EPUB navigation page target: at least one navLabel element is required.');
+    // }
     return result;
   }
 
@@ -626,6 +637,7 @@ class NavigationReader {
     ) {
       switch (navigationPointChildNode.name.local.toLowerCase()) {
         case 'a':
+        case 'span':
           var navigationLabel = readNavigationLabelV3(navigationPointChildNode);
           result.NavigationLabels!.add(navigationLabel);
           var content = readNavigationContentV3(navigationPointChildNode);
