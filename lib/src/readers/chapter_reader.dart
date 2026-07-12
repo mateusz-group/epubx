@@ -21,9 +21,15 @@ class ChapterReader {
     var result = <EpubChapterRef>[];
     // navigationPoints.forEach((EpubNavigationPoint navigationPoint) {
     for (var navigationPoint in navigationPoints) {
+      if (navigationPoint.Content?.Source == null) {
+        final children = navigationPoint.ChildNavigationPoints;
+        if (children != null && children.isNotEmpty) {
+          result.addAll(getChaptersImpl(bookRef, children));
+        }
+        continue;
+      }
       String? contentFileName;
       String? anchor;
-      if (navigationPoint.Content?.Source == null) continue;
       var contentSourceAnchorCharIndex = navigationPoint.Content!.Source!
           .indexOf('#');
       if (contentSourceAnchorCharIndex == -1) {

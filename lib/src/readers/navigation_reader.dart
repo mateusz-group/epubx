@@ -327,8 +327,11 @@ class NavigationReader {
     docAuthorNode.children.whereType<xml.XmlElement>().forEach((
       xml.XmlElement node,
     ) {
-      if (node.name.local.toLowerCase() == 'text' && node.value != null) {
-        result.Authors!.add(node.value!);
+      if (node.name.local.toLowerCase() == 'text') {
+        final text = node.innerText.trim();
+        if (text.isNotEmpty) {
+          result.Authors!.add(text);
+        }
       }
     });
     return result;
@@ -342,8 +345,11 @@ class NavigationReader {
     docTitleNode.children.whereType<xml.XmlElement>().forEach((
       xml.XmlElement node,
     ) {
-      if (node.name.local.toLowerCase() == 'text' && node.value != null) {
-        result.Titles!.add(node.value!);
+      if (node.name.local.toLowerCase() == 'text') {
+        final text = node.innerText.trim();
+        if (text.isNotEmpty) {
+          result.Titles!.add(text);
+        }
       }
     });
     return result;
@@ -404,7 +410,7 @@ class NavigationReader {
       );
     }
 
-    result.Text = navigationLabelTextNode.value;
+    result.Text = navigationLabelTextNode.innerText.trim();
 
     return result;
   }
@@ -413,7 +419,7 @@ class NavigationReader {
     xml.XmlElement navigationLabelNode,
   ) {
     var result = EpubNavigationLabel();
-    result.Text = navigationLabelNode.value?.trim();
+    result.Text = navigationLabelNode.innerText.trim();
     return result;
   }
 
